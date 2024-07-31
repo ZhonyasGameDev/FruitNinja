@@ -7,7 +7,9 @@ public class Blade : MonoBehaviour
     private TrailRenderer bladeTrail;
     private bool slicing;
 
-    public Vector3 direction { get; private set; }
+    public Vector3 Direction { get; private set; }
+    public float SliceForce  { get; private set; } = 5f;
+
     [SerializeField] private float minSliceVelocity = 0.01f;
 
     private void Awake()
@@ -69,9 +71,9 @@ public class Blade : MonoBehaviour
         Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         newPosition.z = 0f;
 
-        direction = newPosition - transform.position;
+        Direction = newPosition - transform.position;
 
-        float velocity = direction.magnitude / Time.deltaTime;
+        float velocity = Direction.magnitude / Time.deltaTime;
         bladeCollider.enabled = velocity > minSliceVelocity;
 
         transform.position = newPosition;
