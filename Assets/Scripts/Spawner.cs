@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    [SerializeField] private GameObject bombPrefab;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float bombChance = 0.05f;
     [SerializeField] private GameObject[] fruitPrefabs;
     [Header("Fruits settings")]
     [SerializeField] private float minSpawnDelay = 0.25f;
@@ -39,6 +43,11 @@ public class Spawner : MonoBehaviour
         while (enabled)
         {
             GameObject fruitprefab = fruitPrefabs[Random.Range(0, fruitPrefabs.Length)];
+
+            if (Random.value < bombChance)
+            {
+                fruitprefab = bombPrefab;
+            }
 
             Vector3 position = new Vector3(Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x),
             Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y),
